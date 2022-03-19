@@ -134,7 +134,7 @@ describe("NFTMarketplace", function() {
             //fetch items total price (market fees + item price)
             totalPriceInWei = await marketplace.getTotalPrice(1); //price of itemId 1
             //addr2 purchases the item
-            //setting value property of price in wei
+            //setting value property of price in wei by calling metadata in with last object inputted
             await expect(marketplace.connect(addr2).purchaseItem(1, { value: totalPriceInWei}))
                 .to.emit(marketplace, "Bought")
                 .withArgs(
@@ -143,8 +143,13 @@ describe("NFTMarketplace", function() {
                     1,
                     toWei(price),
                     addr1.address,
-                    addr1.address
+                    addr2.address
                 )
+
+            //fetch final eth balance of seller (addr1)
+            const sellerFinalEthBal = await addr1.getBalance()
+            //get final eth balance of fee account (deployer)
+            const feeAccountFinalEthBal = await deployer.getBalance()
         })
     })
 
