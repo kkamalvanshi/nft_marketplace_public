@@ -11,6 +11,8 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 //stores all the properties and data regarding the nft (seller, id, contract, price,...)
 contract Marketplace is ReentrancyGuard {
     
+    //marketplace charges fees/commission for any nft purchased
+    
     address payable public immutable feeAccount; //account that receives fees
     uint public immutable feePercent; // fee percentage of sales
     uint public itemCount;
